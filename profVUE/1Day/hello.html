@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Mustache 콧수염 -->
+    <!-- {{ }} -->
+    <!-- <p>{{myText}}</p> -->
+    <!-- v-text -->
+    <!-- 문자로 인식 -->
+    <p v-text="myText"></p> <!-- innerText -->
+    <!-- 태그가 존재하면 태그 인식 -->
+    <p v-html="myText"></p> <!-- innerHTML -->
+    <!-- 디렉티브 v-text, v-html, v-on....-->
+    <button v-on:click="changeText">변경</button>
+  </div>
+  <p>{{myText}}</p>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        myText: '<button type="button">추가</button>'
+      },
+      methods: {
+        changeText: function () {
+          this.myText = `<button type="button">추가</button>`
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

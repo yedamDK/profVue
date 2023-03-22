@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 기본값이 a 태그 -->
+    <router-link to="/main">main</router-link>
+    <!-- button -->
+    <router-link tag="li" to="/info">info</router-link>
+    <router-link to="{name : 'userInfo'}">UserInfo</router-link>
+    <router-link tag="button" :to="{ name : 'user', params : 
+  {username : 'erina'}}">buttonParam</router-link>
+    <router-view></router-view>
+  </div>
+  <script>
+    const mainComponent = {
+      template: `<div><h1>메인 페이지</h1></div>`
+    }
+    const infoComponent = {
+      template: `<div><h3>정보 페이지</h3></div>`
+    }
+
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/main',
+          component: mainComponent
+        },
+        {
+          path: '/info',
+          component: infoComponent
+        },
+        {
+          path: '/userInfo/:id/pwd/:pwd',
+          name: 'userInfo',
+          component: {
+            template: `<div> user {{ this.$route.params.id }} <br>
+                             pwd {{this.$route.params.pwd}} </div>`
+          }
+        },
+        {
+          path: '/users/:username',
+          name: 'user',
+          component: {
+            template: `<div>
+                            <p> 유저 정보 : {{ this.$route.params.username}} </p>
+                        </div>`,
+            props: ['username']
+          },
+          // route 옵션에서 props로 데이터를 받아올 수 있도록 설정
+          props: true
+        }
+      ]
+    })
+
+    new Vue({
+      el: '#app',
+      router: router
+    })
+  </script>
+</body>
+
+</html>

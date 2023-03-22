@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div id="app">
+    <my-component my-name="또치"></my-component>
+    <my-component my-name="희동"></my-component>
+    <my-component></my-component>
+  </div>
+  <script>
+    const MyComponent = {
+      template: `<p> 나는 {{myName}} 입니다.</p>`,
+      // props : ['']
+      props: {
+        myName: String
+      },
+      created: function () { //Vue 인스턴스 생성 후 실행
+        if (this.myName == null) {
+          this.myName = '마이콜'
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        'my-component': MyComponent
+      }
+    })
+  </script>
+  <hr>
+  <div id="app2">
+    <!-- JS : for in, for of -->
+    <!-- new Vue의 배열  -->
+    <my-component v-for="(item, index) in myArray" :my-name="item"></my-component>
+  </div>
+
+  <script>
+    let MyComponent2 = {
+      template: `<p>나는 {{myName}} 입니다.</p>`,
+      props: {
+        myName: String
+      },
+      created: function () {
+        if (this.myName == null) {
+          this.myName = '도우너';
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app2',
+      data: {
+        myArray: ['또치', '희동', '길동', '마이콜']
+      },
+      components: {
+        'my-component': MyComponent2
+      }
+    })
+  </script>
+</body>
+
+</html>

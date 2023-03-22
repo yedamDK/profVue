@@ -1,0 +1,15 @@
+"Generate Basic Vue Code":{
+		"prefix":"vue-start",
+		"body": [
+			"<template>\n<div></div>\n</template>\n<script>\n\nexport default{ \n\tname:'',\n\tcomponents:{},\n\tdata(){\n\t\treturn{\n\t\t\tsampleData:''\n\t\t};\n\t},\n\tsetup(){},\n\tcreated(){},\n\tmounted(){},\n\tunmounted(){},\n\tmethods:{}\n}\n</script>"
+		],
+		"description": "Generate Basic Vue Code"
+	},
+
+	"Study Vue Code":{
+		"prefix":"vue-basic",
+		"body": [
+			"<template>\n<div></div>\n</template>\n<script>\n\nexport default{ \n\tdata(){\n\t\treturn{\n\t\t\tsampleData:''\n\t\t};\n\t}\n}\n</script>"
+		],
+		"description": "Generate Basic Vue Code"
+	}

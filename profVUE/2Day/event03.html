@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=restSec, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>제한 시간내에 문자 입력하기</h1>
+    <label>
+      금지문자(,로 나누어 복수입력가능)
+      <input type="text" v-model="forhiddenText" :disabled="!isWritable">
+    </label>
+    <br>
+    <label>
+      제한시간을 입력하세요(초)
+      <input type="number" v-model.number="setTime" :disabled="!isWritable">
+      <button @click="start" :disabled="!isWritable">시작</button>
+    </label>
+
+    <p>남은 시간 : {{limitTime}}</p>
+    <textarea v-model="inputText" v-bind:disabled="isWritable"></textarea>
+    <p>{{wordCnt}}개의 문자를 입력.</p>
+    <p>벌점 : {{resultScore}} (금지문자 1개당 12점)</p>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        forhiddenText: '',
+        isWritable: true,
+        limitTime: 0,
+        setTime: 0,
+        inputText: '',
+        timerObj: null,
+        wordCnt: 0,
+        forhiddenCnt: 0
+      },
+      methods: {
+        start: function () {
+          this.isWritable = false;
+          this.limitTime = this.setTime;
+          //본인 자신을 가르키는 this를 vueObj에 넣어 줌.
+          const vueObj = this;
+          this.timerObj = setInterval(function () {
+            vueObj.limitTime--;
+          }, 1000)
+        }
+      },
+      watch: {
+        limitTime: function () {
+          if (this.limitTime <= 0) {
+            alert('제한시간에 도달했습니다.')
+            clearInterval(this.timerObj)
+            this.isWritable = true;
+            this.wordCnt = this.inputText.length
+          }
+        },
+        inputText: function () {
+          let dataList = this.forhiddenText.split(',');
+
+          for (let i = 0; i < dataList.length; i++) {
+            let keyword = dataList[i];
+            let pos = this.inputText.indexOf(keyword);
+            if (pos > -1) {
+              alert(this.forhiddenText + '는 입력할 수 없습니다.');
+              this.forhiddenCnt++;
+              this.inputText = this.inputText.substr(0, pos);
+              this.limitTime += 10
+            }
+          }
+        }
+      },
+      computed: {
+        resultScore: function () {
+          return this.forhiddenCnt * 12;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

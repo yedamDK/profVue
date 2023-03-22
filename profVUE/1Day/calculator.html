@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>간단한 계산기</h1>
+    <input type="number" v-model.number="text1"><input type="number" v-model.number="text2">
+    <br>
+    <button v-on:click="add">덧셈계산</button>
+    <p>결과는 {{result}}입니다.</p>
+
+    <button @click="addVal(10)">10씩 증가</button>
+    <button @click="addVal(100)">100씩 증가</button>
+    <button @click="addVal(1000)">1000씩 증가</button>
+    <p>{{count}}</p>
+
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        text1: 0,
+        text2: 0,
+        result: 0,
+        count: 0
+      },
+      methods: {
+        add: function () {
+          this.result = this.text1 + this.text2;
+        },
+        addVal: function (value) {
+          this.count += value;
+          this.result += value;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
